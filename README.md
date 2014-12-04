@@ -98,9 +98,9 @@ or combined with a `numeric` value.
 var arr = incrdatespace( start, stop, '5days' );
 ```
 
-The rule is that the scalar value and its corresponding unit must __not__ be separated; e.g., the following is not valid: `5 days`.
+The rule is that the scalar value and its corresponding unit must __not__ be separated; e.g., the following is __not__ valid: `5 days`.
 
-Scalar units can also be combined to create arbitrary complex increments.
+Scalar units can also be combined to create arbitrarily complex increments.
 
 ``` javascript
 var arr = incrdatespace( start, stop, '1y2b5d12h34s20ms' );
@@ -144,7 +144,7 @@ var incrdatespace = require( 'compute-incrdatespace' ),
 	arr;
 
 stop = '2014-12-02T07:00:54.973Z';
-start = new Date( stop ) - 8640000;
+start = new Date( stop ) - 86400000;
 
 // Default behavior:
 arr = incrdatespace( start, stop );

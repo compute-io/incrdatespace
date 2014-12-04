@@ -89,7 +89,6 @@ describe( 'compute-incrdatespace', function tests() {
 		stop = new Date();
 
 		values = [
-			'beep',
 			true,
 			NaN,
 			null,
@@ -99,8 +98,8 @@ describe( 'compute-incrdatespace', function tests() {
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue1( values[i] ) ).to.throw( Error );
-			expect( badValue2( values[i] ) ).to.throw( Error );
+			expect( badValue1( values[i] ) ).to.throw( TypeError );
+			expect( badValue2( values[i] ) ).to.throw( TypeError );
 		}
 
 		function badValue1( value ) {
@@ -111,6 +110,29 @@ describe( 'compute-incrdatespace', function tests() {
 		function badValue2( value ) {
 			return function() {
 				incrdatespace( start, stop, value, {} );
+			};
+		}
+	});
+
+	it( 'should throw an error if unable to parse an increment string', function test() {
+		var start, stop, values;
+
+		start = new Date().getTime();
+		stop = new Date();
+
+		values = [
+			'beep',
+			'ms',
+			'w5'
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( Error );
+		}
+
+		function badValue( value ) {
+			return function() {
+				incrdatespace( start, stop, value );
 			};
 		}
 	});
@@ -244,7 +266,7 @@ describe( 'compute-incrdatespace', function tests() {
 		assert.ok( actual[0] < actual[1] );
 
 		// Decremental:
-		actual = incrdatespace( stop, start, { 'round': 'round' });
+		actual = incrdatespace( stop, start, -86400000, { 'round': 'round' });
 
 		assert.ok( actual[0] > actual[1] );
 	});
@@ -267,6 +289,38 @@ describe( 'compute-incrdatespace', function tests() {
 			1417503652973,
 			1417503653973,
 			1417503654973
+		];
+
+		assert.deepEqual( actual, expected );
+
+		// Large array:
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 1e6;
+
+		actual = incrdatespace( start, stop, 1 );
+		assert.strictEqual( actual.length, 1e6 );
+	});
+
+	it( 'should accept Unix timestamps', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		stop = new Date( stop ).getTime();
+		stop = Math.floor( stop / 1000 );
+		start = stop - 5;
+
+		actual = incrdatespace( start, stop, '1s' );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503650000,
+			1417503651000,
+			1417503652000,
+			1417503653000,
+			1417503654000
 		];
 
 		assert.deepEqual( actual, expected );
@@ -354,6 +408,23 @@ describe( 'compute-incrdatespace', function tests() {
 		];
 
 		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should return a single element array for incompatible increments', function test() {
+		var start, stop, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5;
+
+		actual = incrdatespace( start, stop, -1 );
+
+		assert.strictEqual( actual.length, 1 );
+		assert.strictEqual( actual[ 0 ].getTime(), start );
+
+		actual = incrdatespace( start, stop, 6 );
+
+		assert.strictEqual( actual.length, 1 );
+		assert.strictEqual( actual[ 0 ].getTime(), start );
 	});
 
 });
