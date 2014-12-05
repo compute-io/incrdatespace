@@ -122,7 +122,7 @@ describe( 'compute-incrdatespace', function tests() {
 
 		values = [
 			'beep',
-			'ms',
+			'5ms-4sec',
 			'w5'
 		];
 
@@ -321,6 +321,54 @@ describe( 'compute-incrdatespace', function tests() {
 			1417503652000,
 			1417503653000,
 			1417503654000
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should accept a unit string', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		stop = new Date( stop ).getTime();
+		stop = Math.floor( stop / 1000 );
+		start = stop - 5;
+
+		actual = incrdatespace( start, stop, 'sec' );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503650000,
+			1417503651000,
+			1417503652000,
+			1417503653000,
+			1417503654000
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should accept a formatted string of scalar-unit pairs of arbitrary complexity', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		stop = new Date( stop ).getTime();
+		stop = Math.floor( stop / 1000 );
+		start = stop - 5;
+
+		actual = incrdatespace( stop, start, '-0day.1sec.1000ms' );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503655000,
+			1417503653000,
+			1417503651000
 		];
 
 		assert.deepEqual( actual, expected );

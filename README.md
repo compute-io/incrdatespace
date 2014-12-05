@@ -100,10 +100,16 @@ var arr = incrdatespace( start, stop, '5days' );
 
 The rule is that the scalar value and its corresponding unit must __not__ be separated; e.g., the following is __not__ valid: `5 days`.
 
-Scalar units can also be combined to create arbitrarily complex increments.
+Scalar-unit pairs can also be combined to create arbitrarily complex increments as long as the pairs are delineated using `dot` notation.
 
 ``` javascript
-var arr = incrdatespace( start, stop, '1y2b5d12h34s20ms' );
+var arr = incrdatespace( start, stop, '1y.2b.5days.12hours.34sec.20ms' );
+```
+
+To decrement, just prefix the scalar unit `string` with a minus sign.
+
+``` javascript
+var arr = incrdatespace( stop, start, '-1y.2b.5days.12hours.34sec.20ms' );
 ```
 
 The output `array` is guaranteed to include the `start` time but is __not__ guaranteed to include the `stop` time (in most cases, the `array` will __not__ include the `stop` time). Beware, however, that values between the `start` and `end` are subject to rounding errors. For example,
@@ -144,7 +150,7 @@ var incrdatespace = require( 'compute-incrdatespace' ),
 	arr;
 
 stop = '2014-12-02T07:00:54.973Z';
-start = new Date( stop ) - 86400000;
+start = new Date( stop ) - 5*86400000;
 
 // Default behavior:
 arr = incrdatespace( start, stop );

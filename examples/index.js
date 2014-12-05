@@ -6,7 +6,7 @@ var incrdatespace = require( './../lib' ),
 	arr;
 
 stop = '2014-12-02T07:00:54.973Z';
-start = new Date( stop ) - 86400000;
+start = new Date( stop ) - 5*86400000;
 
 // Default behavior:
 console.log( '\nDefault:' );
