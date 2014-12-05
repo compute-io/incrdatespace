@@ -100,13 +100,13 @@ var arr = incrdatespace( start, stop, '5days' );
 
 The rule is that the scalar value and its corresponding unit must __not__ be separated; e.g., the following is __not__ valid: `5 days`.
 
-Scalar-unit pairs can also be combined to create arbitrarily complex increments as long as the pairs are delineated using `dot` notation.
+Scalar-unit pairs can be combined to create arbitrarily complex increments as long as the pairs are delineated using `dot` notation.
 
 ``` javascript
 var arr = incrdatespace( start, stop, '1y.2b.5days.12hours.34sec.20ms' );
 ```
 
-To decrement, just prefix the scalar unit `string` with a minus sign.
+To decrement, prefix the scalar unit `string` with a minus sign.
 
 ``` javascript
 var arr = incrdatespace( stop, start, '-1y.2b.5days.12hours.34sec.20ms' );
