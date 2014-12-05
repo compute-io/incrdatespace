@@ -75,7 +75,7 @@ arr = incrdatespace( start, stop, '8s' );
 */
 ```
 
-The `increment` can be specified as either a `number` (units of milliseconds) or a `string`. The following presets are recognized:
+The `increment` can be specified as either a `number` (units of milliseconds) or a `string`. The following units are recognized:
 
 *	`ms, millisecond, milliseconds`
 *	`s, sec, secs, second, seconds`
