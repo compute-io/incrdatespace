@@ -78,13 +78,13 @@ arr = incrdatespace( start, stop, '8s' );
 The `increment` can be specified as either a `number` (units of milliseconds) or a `string`. The following presets are recognized:
 
 *	`ms, millisecond, milliseconds`
-*	`s, sec, second, seconds`
-*	`m, min, minute, minutes`
-*	`h, hr, hour, hours`
+*	`s, sec, secs, second, seconds`
+*	`m, min, mins, minute, minutes`
+*	`h, hr, hrs, hour, hours`
 *	`d, day, days`
-*	`w, wk, week, weeks`
+*	`w, wk, wks, week, weeks`
 *	`b, month, months`
-* 	`y, yr, year, years`
+* 	`y, yr, yrs, year, years`
 
 Units can be provided as is
 
