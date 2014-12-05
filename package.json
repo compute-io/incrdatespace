@@ -1,6 +1,6 @@
 {
   "name": "compute-incrdatespace",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Generates an array of linearly spaced dates using a provided increment.",
   "author": {
     "name": "Athan Reines",
